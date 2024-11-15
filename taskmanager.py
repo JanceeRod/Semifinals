@@ -4,11 +4,12 @@
 
 """
 JANCEE 
-    add task
-    view task
-
+    task class
+    menu page
+    
 RICO
-    filter task
+    add
+    view/filter task
     edit task
 
 IRISH
@@ -69,6 +70,22 @@ class ToDoListManager:
             return f"[{'✔' if self.completed else ' '}] {self.name}"
 
           
+    def mark_task_complete(self, index):
+        if 0 <= index < len(self.tasks):
+            self.tasks[index].mark_complete()
+            print(f"Task '{self.tasks[index].name}' marked as complete.")
+        else:
+            print("Invalid task number.")
+
+            
+    def delete_task(self, index):
+            if 0 <= index < len(self.tasks):
+                task_name = self.tasks.pop(index).name
+                print(f"Task '{task_name}' deleted.")
+            else:
+                print("Invalid task number.")
+    
+    
     def menu(self):
         while True:
             print("\nTo-Do List Manager")
@@ -122,4 +139,3 @@ class ToDoListManager:
 if __name__ == "__main__":
     manager = ToDoListManager()
     manager.menu()
-
