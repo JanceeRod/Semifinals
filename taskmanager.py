@@ -23,17 +23,24 @@ class Task:
         self.name = name
         self.completed = False
 
+    def mark_complete(self):
+        self.completed = True
+
+    def edit(self, new_name):
+        self.name = new_name
+
+    def __str__(self):
+        return f"[{'✔' if self.completed else ' '}] {self.name}"
+
 
 class ToDoListManager:
     def __init__(self):
         self.tasks = []
-        
-        
+
     def add_task(self, task_name):
         self.tasks.append(Task(task_name))
         print(f"Task '{task_name}' added.")
 
-        
     def view_tasks(self, filter_type=None):
         if filter_type == "completed":
             tasks = [task for task in self.tasks if task.completed]
@@ -51,7 +58,6 @@ class ToDoListManager:
         else:
             print("No tasks found.")
 
-            
     def edit_task(self, index, new_name):
         if 0 <= index < len(self.tasks):
             old_name = self.tasks[index].name
@@ -60,16 +66,6 @@ class ToDoListManager:
         else:
             print("Invalid task number.")
 
-        def mark_complete(self):
-            self.completed = True
-
-        def edit(self, new_name):
-            self.name = new_name
-
-        def __str__(self):
-            return f"[{'✔' if self.completed else ' '}] {self.name}"
-
-          
     def mark_task_complete(self, index):
         if 0 <= index < len(self.tasks):
             self.tasks[index].mark_complete()
@@ -77,15 +73,13 @@ class ToDoListManager:
         else:
             print("Invalid task number.")
 
-            
     def delete_task(self, index):
-            if 0 <= index < len(self.tasks):
-                task_name = self.tasks.pop(index).name
-                print(f"Task '{task_name}' deleted.")
-            else:
-                print("Invalid task number.")
-    
-    
+        if 0 <= index < len(self.tasks):
+            task_name = self.tasks.pop(index).name
+            print(f"Task '{task_name}' deleted.")
+        else:
+            print("Invalid task number.")
+
     def menu(self):
         while True:
             print("\nTo-Do List Manager")
