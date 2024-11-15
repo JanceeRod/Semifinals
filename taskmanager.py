@@ -16,25 +16,59 @@ IRISH
     delete task
 """
 
+
 class Task:
     def __init__(self, name):
         self.name = name
         self.completed = False
 
-    def mark_complete(self):
-        self.completed = True
-
-    def edit(self, new_name):
-        self.name = new_name
-
-    def __str__(self):
-        return f"[{'✔' if self.completed else ' '}] {self.name}"
-
 
 class ToDoListManager:
     def __init__(self):
         self.tasks = []
+        
+        
+    def add_task(self, task_name):
+        self.tasks.append(Task(task_name))
+        print(f"Task '{task_name}' added.")
 
+        
+    def view_tasks(self, filter_type=None):
+        if filter_type == "completed":
+            tasks = [task for task in self.tasks if task.completed]
+            print("\nCompleted Tasks:")
+        elif filter_type == "incomplete":
+            tasks = [task for task in self.tasks if not task.completed]
+            print("\nIncomplete Tasks:")
+        else:
+            tasks = self.tasks
+            print("\nAll Tasks:")
+
+        if tasks:
+            for idx, task in enumerate(tasks, 1):
+                print(f"{idx}. {task}")
+        else:
+            print("No tasks found.")
+
+            
+    def edit_task(self, index, new_name):
+        if 0 <= index < len(self.tasks):
+            old_name = self.tasks[index].name
+            self.tasks[index].edit(new_name)
+            print(f"Task '{old_name}' updated to '{new_name}'.")
+        else:
+            print("Invalid task number.")
+
+        def mark_complete(self):
+            self.completed = True
+
+        def edit(self, new_name):
+            self.name = new_name
+
+        def __str__(self):
+            return f"[{'✔' if self.completed else ' '}] {self.name}"
+
+          
     def menu(self):
         while True:
             print("\nTo-Do List Manager")
@@ -88,3 +122,4 @@ class ToDoListManager:
 if __name__ == "__main__":
     manager = ToDoListManager()
     manager.menu()
+
